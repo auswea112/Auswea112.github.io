@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Elapsed Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Time Elapsed Since 02/08/25 7:00 AM</h1>
+    <button id="timeButton">Calculate Time Elapsed</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('timeButton').addEventListener('click', function() {
+            try {
+                // Define the target date
+                const targetDate = new Date('2025-02-08T07:00:00');
+                const currentDate = new Date();
+
+                // Check if the target date is valid
+                if (isNaN(targetDate.getTime())) {
+                    throw new Error('Invalid target date.');
+                }
+
+                // Calculate the time difference
+                const timeDifference = currentDate - targetDate;
+
+                // Check if the time difference is negative
+                if (timeDifference < 0) {
+                    throw new Error('The target date is in the future.');
+                }
+
+                // Convert time difference to days, hours, minutes, and seconds
+                const seconds = Math.floor((timeDifference / 1000) % 60);
+                const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+                const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+                // Display the result
+                document.getElementById('result').innerText = 
+                    `Time elapsed: ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`;
+            } catch (error) {
+                // Handle any errors that occur
+                document.getElementById('result').innerText = `Error: ${error.message}`;
+            }
+        });
+    </script>
+
+</body>
+</html>
+
